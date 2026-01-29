@@ -63,7 +63,7 @@ func SDKResourcesConfigured() []string {
 
 // FrameworkResourcesConfigured returns the list of Plugin Framework resources.
 func FrameworkResourcesConfigured() []string {
-	var l []string
+	l := make([]string, 0, len(PluginFrameworkResources))
 	for name := range PluginFrameworkResources {
 		// $ is added to match the exact string since the format is regex.
 		l = append(l, name+"$")

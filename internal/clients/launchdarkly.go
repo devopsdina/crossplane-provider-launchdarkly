@@ -33,11 +33,34 @@ const (
 	errExtractCredentials   = "cannot extract credentials"
 	errUnmarshalCredentials = "cannot unmarshal launchdarkly credentials as JSON"
 	errConfigureSDKProvider = "cannot configure LaunchDarkly SDK provider"
-
-	keyAccessToken = "access_token"
-	keyAPIHost     = "api_host"
-	keyOAuthToken  = "oauth_token"
 )
+
+// credentialKeys are the supported keys in the credentials JSON.
+var credentialKeys = []string{"access_token", "api_host", "oauth_token"}
+
+// extractCredentials retrieves and unmarshals credentials from the ProviderConfig.
+func extractCredentials(ctx context.Context, c client.Client, pc *v1beta1.ProviderConfig) (map[string]string, error) {
+	data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, c, pc.Spec.Credentials.CommonCredentialSelectors)
+	if err != nil {
+		return nil, errors.Wrap(err, errExtractCredentials)
+	}
+	creds := map[string]string{}
+	if err := json.Unmarshal(data, &creds); err != nil {
+		return nil, errors.Wrap(err, errUnmarshalCredentials)
+	}
+	return creds, nil
+}
+
+// buildConfiguration creates the provider configuration map from credentials.
+func buildConfiguration(creds map[string]string) map[string]any {
+	config := map[string]any{}
+	for _, key := range credentialKeys {
+		if v, ok := creds[key]; ok {
+			config[key] = v
+		}
+	}
+	return config
+}
 
 // TerraformSetupBuilder returns a SetupFn for no-fork mode.
 // This does not require Terraform CLI at runtime - it calls the
@@ -65,26 +88,12 @@ func TerraformSetupBuilder() terraform.SetupFn {
 			return ps, errors.Wrap(err, errTrackUsage)
 		}
 
-		data, err := resource.CommonCredentialExtractor(ctx, pc.Spec.Credentials.Source, c, pc.Spec.Credentials.CommonCredentialSelectors)
+		creds, err := extractCredentials(ctx, c, pc)
 		if err != nil {
-			return ps, errors.Wrap(err, errExtractCredentials)
-		}
-		creds := map[string]string{}
-		if err := json.Unmarshal(data, &creds); err != nil {
-			return ps, errors.Wrap(err, errUnmarshalCredentials)
+			return ps, err
 		}
 
-		// Build provider configuration from credentials
-		ps.Configuration = map[string]any{}
-		if v, ok := creds[keyAccessToken]; ok {
-			ps.Configuration[keyAccessToken] = v
-		}
-		if v, ok := creds[keyAPIHost]; ok {
-			ps.Configuration[keyAPIHost] = v
-		}
-		if v, ok := creds[keyOAuthToken]; ok {
-			ps.Configuration[keyOAuthToken] = v
-		}
+		ps.Configuration = buildConfiguration(creds)
 
 		// Configure SDK v2 provider (for most resources)
 		sdkProvider := ldProvider.Provider()
