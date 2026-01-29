@@ -13,7 +13,7 @@ to the [latest release](https://marketplace.upbound.io/providers/launchdarkly/pr
 <!-- x-release-please-start-version -->
 
 ```
-up ctp provider install xpkg.upbound.io/launchdarkly/provider-launchdarkly:v0.5.0
+up ctp provider install xpkg.upbound.io/launchdarkly/provider-launchdarkly:v0.6.0
 ```
 
 <!-- x-release-please-end -->
@@ -29,7 +29,7 @@ kind: Provider
 metadata:
   name: provider-launchdarkly
 spec:
-  package: xpkg.upbound.io/launchdarkly/provider-launchdarkly:v0.5.0
+  package: xpkg.upbound.io/launchdarkly/provider-launchdarkly:v0.6.0
 EOF
 ```
 
