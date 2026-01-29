@@ -27,6 +27,11 @@ spec:
         color: "000000"
         tags:
           - managed-by-crossplane
+      - key: test
+        name: Test
+        color: "FF5733"
+        tags:
+          - managed-by-crossplane
 ---
 apiVersion: project.launchdarkly.com/v1alpha1
 kind: Environment

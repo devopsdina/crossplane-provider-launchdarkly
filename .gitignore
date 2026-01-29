@@ -9,3 +9,6 @@ cover.out
 # ignore IDE folders
 .vscode/
 .idea/
+
+# Local e2e test credentials (contains API tokens)
+cluster/test/credentials.json

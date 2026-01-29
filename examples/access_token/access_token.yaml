@@ -5,6 +5,7 @@ metadata:
 spec:
   forProvider:
     name: Crossplane Access Token
+    defaultApiVersion: 20191212
     inlineRoles:
       - actions:
           - "*"

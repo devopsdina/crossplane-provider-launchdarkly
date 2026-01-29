@@ -6,7 +6,7 @@ on:
     - cron: "0 15 * * *" # Run at 15:00 UTC every day
 
 env:
-  GO_VERSION: "1.23"
+  GO_VERSION: "1.25.5"
   PROVIDER_SOURCE: "launchdarkly/launchdarkly"
 
 permissions:

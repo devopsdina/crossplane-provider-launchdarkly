@@ -204,6 +204,148 @@ local-deploy: build controlplane.up local.xpkg.deploy.provider.$(PROJECT_NAME)
 
 e2e: local-deploy uptest
 
+# ====================================================================================
+# Local E2E Testing (run the example CRDs against your LaunchDarkly account)
+#
+# Usage:
+#   1. Copy cluster/test/credentials.json.example to cluster/test/credentials.json
+#   2. Add your LaunchDarkly API admin token to cluster/test/credentials.json
+#   3. Run: make local-e2e
+#
+# Or run steps individually:
+#   make local-e2e-setup    - Create secret and ProviderConfig in cluster
+#   make local-e2e-create   - Apply all test resources to LaunchDarkly
+#   make local-e2e-verify   - Wait for resources to be Ready
+#   make local-e2e-cleanup  - Delete all test resources from LaunchDarkly
+
+LOCAL_E2E_CREDS_FILE ?= cluster/test/credentials.json
+LOCAL_E2E_EXAMPLES ?= examples/project_environment_and_flag
+
+# Setup credentials from local file
+local-e2e-setup:
+	@$(INFO) Setting up credentials from $(LOCAL_E2E_CREDS_FILE)
+	@test -f $(LOCAL_E2E_CREDS_FILE) || (echo "ERROR: $(LOCAL_E2E_CREDS_FILE) not found. Copy from credentials.json.example and add your API token" && exit 1)
+	@$(KUBECTL) -n $(CROSSPLANE_NAMESPACE) create secret generic provider-secret \
+		--from-file=credentials=$(LOCAL_E2E_CREDS_FILE) \
+		--dry-run=client -o yaml | $(KUBECTL) apply -f -
+	@$(KUBECTL) apply -f cluster/test/providerconfig.yaml
+	@$(OK) Credentials configured
+
+# Create ALL test resources in LaunchDarkly
+# Skips: destination/kinesis.yaml (AWS), auditlogsubscription/datadog.yaml (Datadog)
+local-e2e-create:
+	@$(INFO) Creating ALL test resources in LaunchDarkly
+	@echo ""
+	@echo "=== Phase 1: Independent resources (no dependencies) ==="
+	@echo "Creating custom roles..."
+	@$(KUBECTL) apply -f examples/custom_role/custom_role.yaml
+	@echo "Creating webhook..."
+	@$(KUBECTL) apply -f examples/webhook/webhook.yaml
+	@echo "Creating access token..."
+	@$(KUBECTL) apply -f examples/access_token/access_token.yaml
+	@echo "Creating relay proxy configuration..."
+	@$(KUBECTL) apply -f examples/relay_proxy_configuration/relay_proxy_configuration.yaml
+	@sleep 2
+	@echo ""
+	@echo "=== Phase 2: Project and environments ==="
+	@$(KUBECTL) apply -f $(LOCAL_E2E_EXAMPLES)/project_environment.yaml
+	@sleep 3
+	@echo ""
+	@echo "=== Phase 3: Team members (before team) ==="
+	@$(KUBECTL) apply -f examples/team_with_custom_roles/members.yml
+	@sleep 2
+	@echo ""
+	@echo "=== Phase 4: Team with custom roles ==="
+	@$(KUBECTL) apply -f examples/team_with_custom_roles/team.yaml
+	@sleep 2
+	@echo ""
+	@echo "=== Phase 5: Feature flags (all types) ==="
+	@$(KUBECTL) apply -f $(LOCAL_E2E_EXAMPLES)/flag.yaml
+	@$(KUBECTL) apply -f examples/feature_flag/boolean.yaml
+	@$(KUBECTL) apply -f examples/feature_flag/json.yaml
+	@$(KUBECTL) apply -f examples/feature_flag/number.yaml
+	@$(KUBECTL) apply -f examples/feature_flag/string.yaml
+	@$(KUBECTL) apply -f examples/feature_flag_environment/targeting.yaml
+	@sleep 2
+	@echo ""
+	@echo "=== Phase 6: Segments ==="
+	@$(KUBECTL) apply -f $(LOCAL_E2E_EXAMPLES)/segment.yaml
+	@$(KUBECTL) apply -f examples/segment/segment.yaml
+	@echo ""
+	@$(OK) All test resources created
+
+# Wait for all resources to be Ready
+local-e2e-verify:
+	@$(INFO) Waiting for resources to be Ready
+	@echo ""
+	@echo "=== Checking independent resources ==="
+	@$(KUBECTL) wait --for=condition=Ready customrole/no-production-access --timeout=3m || (echo "CustomRole not ready" && $(KUBECTL) describe customrole/no-production-access && exit 1)
+	@$(KUBECTL) wait --for=condition=Ready webhook/webhook-example --timeout=3m || (echo "Webhook not ready" && $(KUBECTL) describe webhook/webhook-example && exit 1)
+	@$(KUBECTL) wait --for=condition=Ready accesstoken/crossplane-access-token --timeout=3m || (echo "AccessToken not ready" && $(KUBECTL) describe accesstoken/crossplane-access-token && exit 1)
+	@$(KUBECTL) wait --for=condition=Ready relayproxyconfiguration/crossplane-example --timeout=3m || (echo "RelayProxyConfig not ready" && $(KUBECTL) describe relayproxyconfiguration/crossplane-example && exit 1)
+	@echo ""
+	@echo "=== Checking project and environment ==="
+	@$(KUBECTL) wait --for=condition=Ready project/crossplane-project --timeout=3m || (echo "Project not ready" && $(KUBECTL) describe project/crossplane-project && exit 1)
+	@$(KUBECTL) wait --for=condition=Ready environment/name-dev-environment --timeout=3m || (echo "Environment not ready" && $(KUBECTL) describe environment/name-dev-environment && exit 1)
+	@echo ""
+	@echo "=== Checking team members ==="
+	@$(KUBECTL) wait --for=condition=Ready teammember/example-member-1 --timeout=3m || (echo "TeamMember 1 not ready" && $(KUBECTL) describe teammember/example-member-1 && exit 1)
+	@$(KUBECTL) wait --for=condition=Ready teammember/example-member-2 --timeout=3m || (echo "TeamMember 2 not ready" && $(KUBECTL) describe teammember/example-member-2 && exit 1)
+	@echo ""
+	@echo "=== Checking team ==="
+	@$(KUBECTL) wait --for=condition=Ready team/product-manager-team --timeout=3m || (echo "Team not ready" && $(KUBECTL) describe team/product-manager-team && exit 1)
+	@echo ""
+	@echo "=== Checking feature flags ==="
+	@$(KUBECTL) wait --for=condition=Ready featureflag --all --timeout=3m || (echo "Some flags not ready" && $(KUBECTL) get featureflag && exit 1)
+	@echo ""
+	@echo "=== Checking segments ==="
+	@$(KUBECTL) wait --for=condition=Ready environmentsegment --all --timeout=3m || (echo "Some segments not ready" && $(KUBECTL) get environmentsegment && exit 1)
+	@echo ""
+	@$(OK) All resources Ready
+
+# Cleanup ALL test resources (reverse dependency order)
+local-e2e-cleanup:
+	@$(INFO) Cleaning up ALL test resources from LaunchDarkly
+	@echo ""
+	@echo "=== Phase 1: Segments ==="
+	@$(KUBECTL) delete -f examples/segment/segment.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f $(LOCAL_E2E_EXAMPLES)/segment.yaml --ignore-not-found --wait=true || true
+	@echo ""
+	@echo "=== Phase 2: Feature flag environments ==="
+	@$(KUBECTL) delete featureflagenvironment --all --ignore-not-found --wait=true || true
+	@echo ""
+	@echo "=== Phase 3: Feature flags ==="
+	@$(KUBECTL) delete -f examples/feature_flag_environment/targeting.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f examples/feature_flag/string.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f examples/feature_flag/number.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f examples/feature_flag/json.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f examples/feature_flag/boolean.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f $(LOCAL_E2E_EXAMPLES)/flag.yaml --ignore-not-found --wait=true || true
+	@echo ""
+	@echo "=== Phase 4: Team ==="
+	@$(KUBECTL) delete -f examples/team_with_custom_roles/team.yaml --ignore-not-found --wait=true || true
+	@echo ""
+	@echo "=== Phase 5: Team members ==="
+	@$(KUBECTL) delete -f examples/team_with_custom_roles/members.yml --ignore-not-found --wait=true || true
+	@echo ""
+	@echo "=== Phase 6: Project and environments ==="
+	@$(KUBECTL) delete -f $(LOCAL_E2E_EXAMPLES)/project_environment.yaml --ignore-not-found --wait=true || true
+	@echo ""
+	@echo "=== Phase 7: Independent resources ==="
+	@$(KUBECTL) delete -f examples/relay_proxy_configuration/relay_proxy_configuration.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f examples/access_token/access_token.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f examples/webhook/webhook.yaml --ignore-not-found --wait=true || true
+	@$(KUBECTL) delete -f examples/custom_role/custom_role.yaml --ignore-not-found --wait=true || true
+	@echo ""
+	@$(OK) All test resources cleaned up
+
+# Full local e2e workflow: deploy provider, setup creds, create resources, verify
+local-e2e: local-deploy local-e2e-setup local-e2e-create local-e2e-verify
+	@$(INFO) Local E2E test complete - resources created in LaunchDarkly
+	@echo "Run 'make local-e2e-cleanup' to delete test resources"
+
+.PHONY: local-e2e-setup local-e2e-create local-e2e-verify local-e2e-cleanup local-e2e-cleanup-force local-e2e
+
 crddiff: $(UPTEST)
 	@$(INFO) Checking breaking CRD schema changes
 	@for crd in $${MODIFIED_CRD_LIST}; do \
