@@ -68,7 +68,7 @@ func (in *AccessTokenInitParameters) DeepCopyInto(out *AccessTokenInitParameters
 	}
 	if in.DefaultAPIVersion != nil {
 		in, out := &in.DefaultAPIVersion, &out.DefaultAPIVersion
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.InlineRoles != nil {
@@ -153,7 +153,7 @@ func (in *AccessTokenObservation) DeepCopyInto(out *AccessTokenObservation) {
 	}
 	if in.DefaultAPIVersion != nil {
 		in, out := &in.DefaultAPIVersion, &out.DefaultAPIVersion
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.ID != nil {
@@ -223,7 +223,7 @@ func (in *AccessTokenParameters) DeepCopyInto(out *AccessTokenParameters) {
 	}
 	if in.DefaultAPIVersion != nil {
 		in, out := &in.DefaultAPIVersion, &out.DefaultAPIVersion
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.InlineRoles != nil {
@@ -327,18 +327,9 @@ func (in *AuditLogSubscriptionInitParameters) DeepCopyInto(out *AuditLogSubscrip
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.IntegrationKey != nil {
@@ -423,18 +414,9 @@ func (in *AuditLogSubscriptionObservation) DeepCopyInto(out *AuditLogSubscriptio
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.ID != nil {
@@ -492,18 +474,9 @@ func (in *AuditLogSubscriptionParameters) DeepCopyInto(out *AuditLogSubscription
 	*out = *in
 	if in.Config != nil {
 		in, out := &in.Config, &out.Config
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.IntegrationKey != nil {

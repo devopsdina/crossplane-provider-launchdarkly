@@ -13,9 +13,6 @@ TERRAFORM_VERSION_VALID := $(shell [ "$(TERRAFORM_VERSION)" = "`printf "$(TERRAF
 export TERRAFORM_PROVIDER_SOURCE ?= launchdarkly/launchdarkly
 export TERRAFORM_PROVIDER_REPO ?= https://github.com/launchdarkly/terraform-provider-launchdarkly
 export TERRAFORM_PROVIDER_VERSION ?= 2.25.3
-export TERRAFORM_PROVIDER_DOWNLOAD_NAME ?= terraform-provider-launchdarkly
-export TERRAFORM_PROVIDER_DOWNLOAD_URL_PREFIX ?= https://github.com/launchdarkly/$(TERRAFORM_PROVIDER_DOWNLOAD_NAME)/releases/download/v$(TERRAFORM_PROVIDER_VERSION)/
-export TERRAFORM_NATIVE_PROVIDER_BINARY ?= terraform-provider-launchdarkly_$(TERRAFORM_PROVIDER_VERSION)
 export TERRAFORM_DOCS_PATH ?= docs/resources
 
 
@@ -101,7 +98,7 @@ xpkg.build.provider-launchdarkly: $(CROSSPLANE_CLI)
 
 # NOTE(hasheddan): we ensure up is installed prior to running platform-specific
 # build steps in parallel to avoid encountering an installation race condition.
-build.init: $(UP) $(CROSSPLANE_CLI) check-terraform-version
+build.init: $(UP) $(CROSSPLANE_CLI)
 
 # ====================================================================================
 # Setup Terraform for fetching provider schema

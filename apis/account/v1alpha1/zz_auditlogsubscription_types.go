@@ -17,8 +17,7 @@ type AuditLogSubscriptionInitParameters struct {
 
 	// (Map of String) The set of configuration fields corresponding to the value defined for integration_key. Refer to the formVariables field in the corresponding integrations/<integration_key>/manifest.json file in this repo for a full list of fields for the integration you wish to configure.
 	// The set of configuration fields corresponding to the value defined for `integration_key`. Refer to the `formVariables` field in the corresponding `integrations/<integration_key>/manifest.json` file in [this repo](https://github.com/launchdarkly/integration-framework/tree/master/integrations) for a full list of fields for the integration you wish to configure.
-	// +mapType=granular
-	Config map[string]*string `json:"config,omitempty" tf:"config,omitempty"`
+	Config map[string]string `json:"config,omitempty" tf:"config,omitempty"`
 
 	// relic-apm, pagerduty, signalfx, slack, and splunk. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The integration key. Supported integration keys are `chronosphere`, `cloudtrail`, `datadog`, `dynatrace`, `elastic`, `grafana`, `honeycomb`, `kosli`, `last9`, `logdna`, `msteams`, `new-relic-apm`, `pagerduty`, `signalfx`, `slack`, and `splunk`. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -46,8 +45,7 @@ type AuditLogSubscriptionObservation struct {
 
 	// (Map of String) The set of configuration fields corresponding to the value defined for integration_key. Refer to the formVariables field in the corresponding integrations/<integration_key>/manifest.json file in this repo for a full list of fields for the integration you wish to configure.
 	// The set of configuration fields corresponding to the value defined for `integration_key`. Refer to the `formVariables` field in the corresponding `integrations/<integration_key>/manifest.json` file in [this repo](https://github.com/launchdarkly/integration-framework/tree/master/integrations) for a full list of fields for the integration you wish to configure.
-	// +mapType=granular
-	Config map[string]*string `json:"config,omitempty" tf:"config,omitempty"`
+	Config map[string]string `json:"config,omitempty" tf:"config,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -79,8 +77,7 @@ type AuditLogSubscriptionParameters struct {
 	// (Map of String) The set of configuration fields corresponding to the value defined for integration_key. Refer to the formVariables field in the corresponding integrations/<integration_key>/manifest.json file in this repo for a full list of fields for the integration you wish to configure.
 	// The set of configuration fields corresponding to the value defined for `integration_key`. Refer to the `formVariables` field in the corresponding `integrations/<integration_key>/manifest.json` file in [this repo](https://github.com/launchdarkly/integration-framework/tree/master/integrations) for a full list of fields for the integration you wish to configure.
 	// +kubebuilder:validation:Optional
-	// +mapType=granular
-	Config map[string]*string `json:"config,omitempty" tf:"config,omitempty"`
+	Config map[string]string `json:"config,omitempty" tf:"config,omitempty"`
 
 	// relic-apm, pagerduty, signalfx, slack, and splunk. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The integration key. Supported integration keys are `chronosphere`, `cloudtrail`, `datadog`, `dynatrace`, `elastic`, `grafana`, `honeycomb`, `kosli`, `last9`, `logdna`, `msteams`, `new-relic-apm`, `pagerduty`, `signalfx`, `slack`, and `splunk`. A change in this field will force the destruction of the existing resource and the creation of a new one.

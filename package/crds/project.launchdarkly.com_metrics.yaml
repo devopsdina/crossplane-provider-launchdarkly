@@ -205,7 +205,8 @@ spec:
                     description: |-
                       (Number) The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
                       The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
-                    type: number
+                    format: int64
+                    type: integer
                   projectKey:
                     description: |-
                       (String) The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -493,7 +494,8 @@ spec:
                     description: |-
                       (Number) The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
                       The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
-                    type: number
+                    format: int64
+                    type: integer
                   projectKey:
                     description: |-
                       (String) The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -799,7 +801,8 @@ spec:
                     description: |-
                       (Number) The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
                       The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
-                    type: number
+                    format: int64
+                    type: integer
                   projectKey:
                     description: |-
                       (String) The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -873,7 +876,8 @@ spec:
                     description: |-
                       (Number) Version of the metric
                       Version of the metric
-                    type: number
+                    format: int64
+                    type: integer
                 type: object
               conditions:
                 description: Conditions of the resource.

@@ -99,7 +99,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the variation to serve if a user target value is matched.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   envKey:
@@ -204,13 +205,15 @@ spec:
                             (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
                             List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
                           items:
-                            type: number
+                            format: int64
+                            type: integer
                           type: array
                         variation:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The default integer variation index to serve if no `prerequisites`, `target`, or `rules` apply. You must specify either `variation` or `rollout_weights`.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   flagId:
@@ -296,7 +299,8 @@ spec:
                     description: |-
                       (Number) The index of the variation to serve if targeting is disabled.
                       The index of the variation to serve if targeting is disabled.
-                    type: number
+                    format: int64
+                    type: integer
                   "on":
                     description: |-
                       (Boolean) Whether targeting is enabled. Defaults to false if not set.
@@ -317,7 +321,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the prerequisite feature flag's variation to target.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   rules:
@@ -386,13 +391,15 @@ spec:
                             (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
                             List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
                           items:
-                            type: number
+                            format: int64
+                            type: integer
                           type: array
                         variation:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The integer variation index to serve if the rule clauses evaluate to `true`. You must specify either `variation` or `rollout_weights`
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   targets:
@@ -412,7 +419,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the variation to serve if a user target value is matched.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   trackEvents:
@@ -456,7 +464,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the variation to serve if a user target value is matched.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   envKey:
@@ -561,13 +570,15 @@ spec:
                             (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
                             List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
                           items:
-                            type: number
+                            format: int64
+                            type: integer
                           type: array
                         variation:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The default integer variation index to serve if no `prerequisites`, `target`, or `rules` apply. You must specify either `variation` or `rollout_weights`.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   flagId:
@@ -653,7 +664,8 @@ spec:
                     description: |-
                       (Number) The index of the variation to serve if targeting is disabled.
                       The index of the variation to serve if targeting is disabled.
-                    type: number
+                    format: int64
+                    type: integer
                   "on":
                     description: |-
                       (Boolean) Whether targeting is enabled. Defaults to false if not set.
@@ -674,7 +686,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the prerequisite feature flag's variation to target.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   rules:
@@ -743,13 +756,15 @@ spec:
                             (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
                             List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
                           items:
-                            type: number
+                            format: int64
+                            type: integer
                           type: array
                         variation:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The integer variation index to serve if the rule clauses evaluate to `true`. You must specify either `variation` or `rollout_weights`
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   targets:
@@ -769,7 +784,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the variation to serve if a user target value is matched.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   trackEvents:
@@ -901,7 +917,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the variation to serve if a user target value is matched.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   envKey:
@@ -930,13 +947,15 @@ spec:
                             (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
                             List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
                           items:
-                            type: number
+                            format: int64
+                            type: integer
                           type: array
                         variation:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The default integer variation index to serve if no `prerequisites`, `target`, or `rules` apply. You must specify either `variation` or `rollout_weights`.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   flagId:
@@ -951,7 +970,8 @@ spec:
                     description: |-
                       (Number) The index of the variation to serve if targeting is disabled.
                       The index of the variation to serve if targeting is disabled.
-                    type: number
+                    format: int64
+                    type: integer
                   "on":
                     description: |-
                       (Boolean) Whether targeting is enabled. Defaults to false if not set.
@@ -972,7 +992,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the prerequisite feature flag's variation to target.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   rules:
@@ -1041,13 +1062,15 @@ spec:
                             (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
                             List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
                           items:
-                            type: number
+                            format: int64
+                            type: integer
                           type: array
                         variation:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The integer variation index to serve if the rule clauses evaluate to `true`. You must specify either `variation` or `rollout_weights`
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   targets:
@@ -1067,7 +1090,8 @@ spec:
                           description: |-
                             (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
                             The index of the variation to serve if a user target value is matched.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   trackEvents:

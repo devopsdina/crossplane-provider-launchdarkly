@@ -81,7 +81,6 @@ spec:
                       (Map of String) The set of configuration fields corresponding to the value defined for integration_key. Refer to the formVariables field in the corresponding integrations/<integration_key>/manifest.json file in this repo for a full list of fields for the integration you wish to configure.
                       The set of configuration fields corresponding to the value defined for `integration_key`. Refer to the `formVariables` field in the corresponding `integrations/<integration_key>/manifest.json` file in [this repo](https://github.com/launchdarkly/integration-framework/tree/master/integrations) for a full list of fields for the integration you wish to configure.
                     type: object
-                    x-kubernetes-map-type: granular
                   integrationKey:
                     description: |-
                       relic-apm, pagerduty, signalfx, slack, and splunk. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -169,7 +168,6 @@ spec:
                       (Map of String) The set of configuration fields corresponding to the value defined for integration_key. Refer to the formVariables field in the corresponding integrations/<integration_key>/manifest.json file in this repo for a full list of fields for the integration you wish to configure.
                       The set of configuration fields corresponding to the value defined for `integration_key`. Refer to the `formVariables` field in the corresponding `integrations/<integration_key>/manifest.json` file in [this repo](https://github.com/launchdarkly/integration-framework/tree/master/integrations) for a full list of fields for the integration you wish to configure.
                     type: object
-                    x-kubernetes-map-type: granular
                   integrationKey:
                     description: |-
                       relic-apm, pagerduty, signalfx, slack, and splunk. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -357,7 +355,6 @@ spec:
                       (Map of String) The set of configuration fields corresponding to the value defined for integration_key. Refer to the formVariables field in the corresponding integrations/<integration_key>/manifest.json file in this repo for a full list of fields for the integration you wish to configure.
                       The set of configuration fields corresponding to the value defined for `integration_key`. Refer to the `formVariables` field in the corresponding `integrations/<integration_key>/manifest.json` file in [this repo](https://github.com/launchdarkly/integration-framework/tree/master/integrations) for a full list of fields for the integration you wish to configure.
                     type: object
-                    x-kubernetes-map-type: granular
                   id:
                     description: (String) The ID of this resource.
                     type: string

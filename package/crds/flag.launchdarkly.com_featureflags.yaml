@@ -131,12 +131,14 @@ spec:
                           description: |-
                             (Number) The index of the variation the flag will default to in all new environments when off.
                             The index of the variation the flag will default to in all new environments when off.
-                          type: number
+                          format: int64
+                          type: integer
                         onVariation:
                           description: |-
                             (Number) The index of the variation the flag will default to in all new environments when on.
                             The index of the variation the flag will default to in all new environments when on.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   description:
@@ -354,12 +356,14 @@ spec:
                           description: |-
                             (Number) The index of the variation the flag will default to in all new environments when off.
                             The index of the variation the flag will default to in all new environments when off.
-                          type: number
+                          format: int64
+                          type: integer
                         onVariation:
                           description: |-
                             (Number) The index of the variation the flag will default to in all new environments when on.
                             The index of the variation the flag will default to in all new environments when on.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   description:
@@ -668,12 +672,14 @@ spec:
                           description: |-
                             (Number) The index of the variation the flag will default to in all new environments when off.
                             The index of the variation the flag will default to in all new environments when off.
-                          type: number
+                          format: int64
+                          type: integer
                         onVariation:
                           description: |-
                             (Number) The index of the variation the flag will default to in all new environments when on.
                             The index of the variation the flag will default to in all new environments when on.
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   description:

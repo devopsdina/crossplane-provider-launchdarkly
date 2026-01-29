@@ -262,7 +262,7 @@ func (in *ContextTargetsInitParameters) DeepCopyInto(out *ContextTargetsInitPara
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -298,7 +298,7 @@ func (in *ContextTargetsObservation) DeepCopyInto(out *ContextTargetsObservation
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -334,7 +334,7 @@ func (in *ContextTargetsParameters) DeepCopyInto(out *ContextTargetsParameters) 
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -462,12 +462,12 @@ func (in *DefaultsInitParameters) DeepCopyInto(out *DefaultsInitParameters) {
 	*out = *in
 	if in.OffVariation != nil {
 		in, out := &in.OffVariation, &out.OffVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.OnVariation != nil {
 		in, out := &in.OnVariation, &out.OnVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -487,12 +487,12 @@ func (in *DefaultsObservation) DeepCopyInto(out *DefaultsObservation) {
 	*out = *in
 	if in.OffVariation != nil {
 		in, out := &in.OffVariation, &out.OffVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.OnVariation != nil {
 		in, out := &in.OnVariation, &out.OnVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -512,12 +512,12 @@ func (in *DefaultsParameters) DeepCopyInto(out *DefaultsParameters) {
 	*out = *in
 	if in.OffVariation != nil {
 		in, out := &in.OffVariation, &out.OffVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.OnVariation != nil {
 		in, out := &in.OnVariation, &out.OnVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -547,18 +547,18 @@ func (in *FallthroughInitParameters) DeepCopyInto(out *FallthroughInitParameters
 	}
 	if in.RolloutWeights != nil {
 		in, out := &in.RolloutWeights, &out.RolloutWeights
-		*out = make([]*float64, len(*in))
+		*out = make([]*int64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(float64)
+				*out = new(int64)
 				**out = **in
 			}
 		}
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -588,18 +588,18 @@ func (in *FallthroughObservation) DeepCopyInto(out *FallthroughObservation) {
 	}
 	if in.RolloutWeights != nil {
 		in, out := &in.RolloutWeights, &out.RolloutWeights
-		*out = make([]*float64, len(*in))
+		*out = make([]*int64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(float64)
+				*out = new(int64)
 				**out = **in
 			}
 		}
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -629,18 +629,18 @@ func (in *FallthroughParameters) DeepCopyInto(out *FallthroughParameters) {
 	}
 	if in.RolloutWeights != nil {
 		in, out := &in.RolloutWeights, &out.RolloutWeights
-		*out = make([]*float64, len(*in))
+		*out = make([]*int64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(float64)
+				*out = new(int64)
 				**out = **in
 			}
 		}
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -758,7 +758,7 @@ func (in *FeatureFlagEnvironmentInitParameters) DeepCopyInto(out *FeatureFlagEnv
 	}
 	if in.OffVariation != nil {
 		in, out := &in.OffVariation, &out.OffVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.On != nil {
@@ -870,7 +870,7 @@ func (in *FeatureFlagEnvironmentObservation) DeepCopyInto(out *FeatureFlagEnviro
 	}
 	if in.OffVariation != nil {
 		in, out := &in.OffVariation, &out.OffVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.On != nil {
@@ -965,7 +965,7 @@ func (in *FeatureFlagEnvironmentParameters) DeepCopyInto(out *FeatureFlagEnviron
 	}
 	if in.OffVariation != nil {
 		in, out := &in.OffVariation, &out.OffVariation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.On != nil {
@@ -1445,7 +1445,7 @@ func (in *PrerequisitesInitParameters) DeepCopyInto(out *PrerequisitesInitParame
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1470,7 +1470,7 @@ func (in *PrerequisitesObservation) DeepCopyInto(out *PrerequisitesObservation) 
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1495,7 +1495,7 @@ func (in *PrerequisitesParameters) DeepCopyInto(out *PrerequisitesParameters) {
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1537,18 +1537,18 @@ func (in *RulesInitParameters) DeepCopyInto(out *RulesInitParameters) {
 	}
 	if in.RolloutWeights != nil {
 		in, out := &in.RolloutWeights, &out.RolloutWeights
-		*out = make([]*float64, len(*in))
+		*out = make([]*int64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(float64)
+				*out = new(int64)
 				**out = **in
 			}
 		}
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1590,18 +1590,18 @@ func (in *RulesObservation) DeepCopyInto(out *RulesObservation) {
 	}
 	if in.RolloutWeights != nil {
 		in, out := &in.RolloutWeights, &out.RolloutWeights
-		*out = make([]*float64, len(*in))
+		*out = make([]*int64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(float64)
+				*out = new(int64)
 				**out = **in
 			}
 		}
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1643,18 +1643,18 @@ func (in *RulesParameters) DeepCopyInto(out *RulesParameters) {
 	}
 	if in.RolloutWeights != nil {
 		in, out := &in.RolloutWeights, &out.RolloutWeights
-		*out = make([]*float64, len(*in))
+		*out = make([]*int64, len(*in))
 		for i := range *in {
 			if (*in)[i] != nil {
 				in, out := &(*in)[i], &(*out)[i]
-				*out = new(float64)
+				*out = new(int64)
 				**out = **in
 			}
 		}
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1685,7 +1685,7 @@ func (in *TargetsInitParameters) DeepCopyInto(out *TargetsInitParameters) {
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1716,7 +1716,7 @@ func (in *TargetsObservation) DeepCopyInto(out *TargetsObservation) {
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -1747,7 +1747,7 @@ func (in *TargetsParameters) DeepCopyInto(out *TargetsParameters) {
 	}
 	if in.Variation != nil {
 		in, out := &in.Variation, &out.Variation
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }

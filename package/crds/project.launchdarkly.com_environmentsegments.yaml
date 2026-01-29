@@ -363,7 +363,8 @@ spec:
                           description: |-
                             (Number) The integer weight of the rule (between 1 and 100000).
                             The integer weight of the rule (between 1 and 100000).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   tags:
@@ -687,7 +688,8 @@ spec:
                           description: |-
                             (Number) The integer weight of the rule (between 1 and 100000).
                             The integer weight of the rule (between 1 and 100000).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   tags:
@@ -813,7 +815,8 @@ spec:
                     description: |-
                       (Number) The segment's creation date represented as a UNIX epoch timestamp.
                       The segment's creation date represented as a UNIX epoch timestamp.
-                    type: number
+                    format: int64
+                    type: integer
                   description:
                     description: |-
                       (String) The description of the segment's purpose.
@@ -956,7 +959,8 @@ spec:
                           description: |-
                             (Number) The integer weight of the rule (between 1 and 100000).
                             The integer weight of the rule (between 1 and 100000).
-                          type: number
+                          format: int64
+                          type: integer
                       type: object
                     type: array
                   tags:

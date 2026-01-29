@@ -66,7 +66,7 @@ type MetricInitParameters struct {
 
 	// (Number) The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
 	// The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
-	PercentileValue *float64 `json:"percentileValue,omitempty" tf:"percentile_value,omitempty"`
+	PercentileValue *int64 `json:"percentileValue,omitempty" tf:"percentile_value,omitempty"`
 
 	// (String) The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -159,7 +159,7 @@ type MetricObservation struct {
 
 	// (Number) The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
 	// The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
-	PercentileValue *float64 `json:"percentileValue,omitempty" tf:"percentile_value,omitempty"`
+	PercentileValue *int64 `json:"percentileValue,omitempty" tf:"percentile_value,omitempty"`
 
 	// (String) The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -197,7 +197,7 @@ type MetricObservation struct {
 
 	// (Number) Version of the metric
 	// Version of the metric
-	Version *float64 `json:"version,omitempty" tf:"version,omitempty"`
+	Version *int64 `json:"version,omitempty" tf:"version,omitempty"`
 }
 
 type MetricParameters struct {
@@ -264,7 +264,7 @@ type MetricParameters struct {
 	// (Number) The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
 	// The percentile for the analysis method. An integer denoting the target percentile between 0 and 100. Required when analysis_type is percentile.
 	// +kubebuilder:validation:Optional
-	PercentileValue *float64 `json:"percentileValue,omitempty" tf:"percentile_value,omitempty"`
+	PercentileValue *int64 `json:"percentileValue,omitempty" tf:"percentile_value,omitempty"`
 
 	// (String) The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The metrics's project key. A change in this field will force the destruction of the existing resource and the creation of a new one. A change in this field will force the destruction of the existing resource and the creation of a new one.

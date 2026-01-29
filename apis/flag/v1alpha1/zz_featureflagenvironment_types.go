@@ -112,7 +112,7 @@ type ContextTargetsInitParameters struct {
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the variation to serve if a user target value is matched.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type ContextTargetsObservation struct {
@@ -127,7 +127,7 @@ type ContextTargetsObservation struct {
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the variation to serve if a user target value is matched.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type ContextTargetsParameters struct {
@@ -145,7 +145,7 @@ type ContextTargetsParameters struct {
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the variation to serve if a user target value is matched.
 	// +kubebuilder:validation:Optional
-	Variation *float64 `json:"variation" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation" tf:"variation,omitempty"`
 }
 
 type FallthroughInitParameters struct {
@@ -160,11 +160,11 @@ type FallthroughInitParameters struct {
 
 	// (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
 	// List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
-	RolloutWeights []*float64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
+	RolloutWeights []*int64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The default integer variation index to serve if no `prerequisites`, `target`, or `rules` apply. You must specify either `variation` or `rollout_weights`.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type FallthroughObservation struct {
@@ -179,11 +179,11 @@ type FallthroughObservation struct {
 
 	// (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
 	// List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
-	RolloutWeights []*float64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
+	RolloutWeights []*int64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The default integer variation index to serve if no `prerequisites`, `target`, or `rules` apply. You must specify either `variation` or `rollout_weights`.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type FallthroughParameters struct {
@@ -201,12 +201,12 @@ type FallthroughParameters struct {
 	// (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
 	// List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
 	// +kubebuilder:validation:Optional
-	RolloutWeights []*float64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
+	RolloutWeights []*int64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The default integer variation index to serve if no `prerequisites`, `target`, or `rules` apply. You must specify either `variation` or `rollout_weights`.
 	// +kubebuilder:validation:Optional
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type FeatureFlagEnvironmentInitParameters struct {
@@ -248,7 +248,7 @@ type FeatureFlagEnvironmentInitParameters struct {
 
 	// (Number) The index of the variation to serve if targeting is disabled.
 	// The index of the variation to serve if targeting is disabled.
-	OffVariation *float64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
+	OffVariation *int64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
 
 	// (Boolean) Whether targeting is enabled. Defaults to false if not set.
 	// Whether targeting is enabled. Defaults to `false` if not set.
@@ -294,7 +294,7 @@ type FeatureFlagEnvironmentObservation struct {
 
 	// (Number) The index of the variation to serve if targeting is disabled.
 	// The index of the variation to serve if targeting is disabled.
-	OffVariation *float64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
+	OffVariation *int64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
 
 	// (Boolean) Whether targeting is enabled. Defaults to false if not set.
 	// Whether targeting is enabled. Defaults to `false` if not set.
@@ -361,7 +361,7 @@ type FeatureFlagEnvironmentParameters struct {
 	// (Number) The index of the variation to serve if targeting is disabled.
 	// The index of the variation to serve if targeting is disabled.
 	// +kubebuilder:validation:Optional
-	OffVariation *float64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
+	OffVariation *int64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
 
 	// (Boolean) Whether targeting is enabled. Defaults to false if not set.
 	// Whether targeting is enabled. Defaults to `false` if not set.
@@ -397,7 +397,7 @@ type PrerequisitesInitParameters struct {
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the prerequisite feature flag's variation to target.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type PrerequisitesObservation struct {
@@ -408,7 +408,7 @@ type PrerequisitesObservation struct {
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the prerequisite feature flag's variation to target.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type PrerequisitesParameters struct {
@@ -421,7 +421,7 @@ type PrerequisitesParameters struct {
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the prerequisite feature flag's variation to target.
 	// +kubebuilder:validation:Optional
-	Variation *float64 `json:"variation" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation" tf:"variation,omitempty"`
 }
 
 type RulesInitParameters struct {
@@ -444,11 +444,11 @@ type RulesInitParameters struct {
 
 	// (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
 	// List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
-	RolloutWeights []*float64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
+	RolloutWeights []*int64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The integer variation index to serve if the rule clauses evaluate to `true`. You must specify either `variation` or `rollout_weights`
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type RulesObservation struct {
@@ -471,11 +471,11 @@ type RulesObservation struct {
 
 	// (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
 	// List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
-	RolloutWeights []*float64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
+	RolloutWeights []*int64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The integer variation index to serve if the rule clauses evaluate to `true`. You must specify either `variation` or `rollout_weights`
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type RulesParameters struct {
@@ -503,12 +503,12 @@ type RulesParameters struct {
 	// (List of Number) List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to true. The sum of the rollout_weights must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either variation or rollout_weights.
 	// List of integer percentage rollout weights (in thousandths of a percent) to apply to each variation if the rule clauses evaluates to `true`. The sum of the `rollout_weights` must equal 100000 and the number of rollout weights specified in the array must match the number of flag variations. You must specify either `variation` or `rollout_weights`.
 	// +kubebuilder:validation:Optional
-	RolloutWeights []*float64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
+	RolloutWeights []*int64 `json:"rolloutWeights,omitempty" tf:"rollout_weights,omitempty"`
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The integer variation index to serve if the rule clauses evaluate to `true`. You must specify either `variation` or `rollout_weights`
 	// +kubebuilder:validation:Optional
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type TargetsInitParameters struct {
@@ -519,7 +519,7 @@ type TargetsInitParameters struct {
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the variation to serve if a user target value is matched.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type TargetsObservation struct {
@@ -530,7 +530,7 @@ type TargetsObservation struct {
 
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the variation to serve if a user target value is matched.
-	Variation *float64 `json:"variation,omitempty" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation,omitempty" tf:"variation,omitempty"`
 }
 
 type TargetsParameters struct {
@@ -543,7 +543,7 @@ type TargetsParameters struct {
 	// (Number) The default integer variation index to serve if no prerequisites, target, or rules apply. You must specify either variation or rollout_weights.
 	// The index of the variation to serve if a user target value is matched.
 	// +kubebuilder:validation:Optional
-	Variation *float64 `json:"variation" tf:"variation,omitempty"`
+	Variation *int64 `json:"variation" tf:"variation,omitempty"`
 }
 
 // FeatureFlagEnvironmentSpec defines the desired state of FeatureFlagEnvironment

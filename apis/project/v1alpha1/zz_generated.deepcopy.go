@@ -33,7 +33,7 @@ func (in *ApprovalSettingsInitParameters) DeepCopyInto(out *ApprovalSettingsInit
 	}
 	if in.MinNumApprovals != nil {
 		in, out := &in.MinNumApprovals, &out.MinNumApprovals
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.Required != nil {
@@ -54,18 +54,9 @@ func (in *ApprovalSettingsInitParameters) DeepCopyInto(out *ApprovalSettingsInit
 	}
 	if in.ServiceConfig != nil {
 		in, out := &in.ServiceConfig, &out.ServiceConfig
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.ServiceKind != nil {
@@ -105,7 +96,7 @@ func (in *ApprovalSettingsObservation) DeepCopyInto(out *ApprovalSettingsObserva
 	}
 	if in.MinNumApprovals != nil {
 		in, out := &in.MinNumApprovals, &out.MinNumApprovals
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.Required != nil {
@@ -126,18 +117,9 @@ func (in *ApprovalSettingsObservation) DeepCopyInto(out *ApprovalSettingsObserva
 	}
 	if in.ServiceConfig != nil {
 		in, out := &in.ServiceConfig, &out.ServiceConfig
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.ServiceKind != nil {
@@ -177,7 +159,7 @@ func (in *ApprovalSettingsParameters) DeepCopyInto(out *ApprovalSettingsParamete
 	}
 	if in.MinNumApprovals != nil {
 		in, out := &in.MinNumApprovals, &out.MinNumApprovals
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.Required != nil {
@@ -198,18 +180,9 @@ func (in *ApprovalSettingsParameters) DeepCopyInto(out *ApprovalSettingsParamete
 	}
 	if in.ServiceConfig != nil {
 		in, out := &in.ServiceConfig, &out.ServiceConfig
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.ServiceKind != nil {
@@ -851,7 +824,7 @@ func (in *EnvironmentInitParameters) DeepCopyInto(out *EnvironmentInitParameters
 	}
 	if in.DefaultTTL != nil {
 		in, out := &in.DefaultTTL, &out.DefaultTTL
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.DefaultTrackEvents != nil {
@@ -976,7 +949,7 @@ func (in *EnvironmentObservation) DeepCopyInto(out *EnvironmentObservation) {
 	}
 	if in.DefaultTTL != nil {
 		in, out := &in.DefaultTTL, &out.DefaultTTL
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.DefaultTrackEvents != nil {
@@ -1064,7 +1037,7 @@ func (in *EnvironmentParameters) DeepCopyInto(out *EnvironmentParameters) {
 	}
 	if in.DefaultTTL != nil {
 		in, out := &in.DefaultTTL, &out.DefaultTTL
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.DefaultTrackEvents != nil {
@@ -1318,7 +1291,7 @@ func (in *EnvironmentSegmentObservation) DeepCopyInto(out *EnvironmentSegmentObs
 	*out = *in
 	if in.CreationDate != nil {
 		in, out := &in.CreationDate, &out.CreationDate
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.Description != nil {
@@ -1641,7 +1614,7 @@ func (in *EnvironmentsApprovalSettingsInitParameters) DeepCopyInto(out *Environm
 	}
 	if in.MinNumApprovals != nil {
 		in, out := &in.MinNumApprovals, &out.MinNumApprovals
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.Required != nil {
@@ -1662,18 +1635,9 @@ func (in *EnvironmentsApprovalSettingsInitParameters) DeepCopyInto(out *Environm
 	}
 	if in.ServiceConfig != nil {
 		in, out := &in.ServiceConfig, &out.ServiceConfig
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.ServiceKind != nil {
@@ -1713,7 +1677,7 @@ func (in *EnvironmentsApprovalSettingsObservation) DeepCopyInto(out *Environment
 	}
 	if in.MinNumApprovals != nil {
 		in, out := &in.MinNumApprovals, &out.MinNumApprovals
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.Required != nil {
@@ -1734,18 +1698,9 @@ func (in *EnvironmentsApprovalSettingsObservation) DeepCopyInto(out *Environment
 	}
 	if in.ServiceConfig != nil {
 		in, out := &in.ServiceConfig, &out.ServiceConfig
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.ServiceKind != nil {
@@ -1785,7 +1740,7 @@ func (in *EnvironmentsApprovalSettingsParameters) DeepCopyInto(out *Environments
 	}
 	if in.MinNumApprovals != nil {
 		in, out := &in.MinNumApprovals, &out.MinNumApprovals
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.Required != nil {
@@ -1806,18 +1761,9 @@ func (in *EnvironmentsApprovalSettingsParameters) DeepCopyInto(out *Environments
 	}
 	if in.ServiceConfig != nil {
 		in, out := &in.ServiceConfig, &out.ServiceConfig
-		*out = make(map[string]*string, len(*in))
+		*out = make(map[string]string, len(*in))
 		for key, val := range *in {
-			var outVal *string
-			if val == nil {
-				(*out)[key] = nil
-			} else {
-				inVal := (*in)[key]
-				in, out := &inVal, &outVal
-				*out = new(string)
-				**out = **in
-			}
-			(*out)[key] = outVal
+			(*out)[key] = val
 		}
 	}
 	if in.ServiceKind != nil {
@@ -1864,7 +1810,7 @@ func (in *EnvironmentsInitParameters) DeepCopyInto(out *EnvironmentsInitParamete
 	}
 	if in.DefaultTTL != nil {
 		in, out := &in.DefaultTTL, &out.DefaultTTL
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.DefaultTrackEvents != nil {
@@ -1942,7 +1888,7 @@ func (in *EnvironmentsObservation) DeepCopyInto(out *EnvironmentsObservation) {
 	}
 	if in.DefaultTTL != nil {
 		in, out := &in.DefaultTTL, &out.DefaultTTL
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.DefaultTrackEvents != nil {
@@ -2020,7 +1966,7 @@ func (in *EnvironmentsParameters) DeepCopyInto(out *EnvironmentsParameters) {
 	}
 	if in.DefaultTTL != nil {
 		in, out := &in.DefaultTTL, &out.DefaultTTL
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.DefaultTrackEvents != nil {
@@ -2349,7 +2295,7 @@ func (in *MetricInitParameters) DeepCopyInto(out *MetricInitParameters) {
 	}
 	if in.PercentileValue != nil {
 		in, out := &in.PercentileValue, &out.PercentileValue
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.ProjectKey != nil {
@@ -2520,7 +2466,7 @@ func (in *MetricObservation) DeepCopyInto(out *MetricObservation) {
 	}
 	if in.PercentileValue != nil {
 		in, out := &in.PercentileValue, &out.PercentileValue
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.ProjectKey != nil {
@@ -2579,7 +2525,7 @@ func (in *MetricObservation) DeepCopyInto(out *MetricObservation) {
 	}
 	if in.Version != nil {
 		in, out := &in.Version, &out.Version
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -2659,7 +2605,7 @@ func (in *MetricParameters) DeepCopyInto(out *MetricParameters) {
 	}
 	if in.PercentileValue != nil {
 		in, out := &in.PercentileValue, &out.PercentileValue
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 	if in.ProjectKey != nil {
@@ -3044,7 +2990,7 @@ func (in *RulesInitParameters) DeepCopyInto(out *RulesInitParameters) {
 	}
 	if in.Weight != nil {
 		in, out := &in.Weight, &out.Weight
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -3081,7 +3027,7 @@ func (in *RulesObservation) DeepCopyInto(out *RulesObservation) {
 	}
 	if in.Weight != nil {
 		in, out := &in.Weight, &out.Weight
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }
@@ -3118,7 +3064,7 @@ func (in *RulesParameters) DeepCopyInto(out *RulesParameters) {
 	}
 	if in.Weight != nil {
 		in, out := &in.Weight, &out.Weight
-		*out = new(float64)
+		*out = new(int64)
 		**out = **in
 	}
 }

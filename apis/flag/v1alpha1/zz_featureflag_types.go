@@ -100,22 +100,22 @@ type DefaultsInitParameters struct {
 
 	// (Number) The index of the variation the flag will default to in all new environments when off.
 	// The index of the variation the flag will default to in all new environments when off.
-	OffVariation *float64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
+	OffVariation *int64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
 
 	// (Number) The index of the variation the flag will default to in all new environments when on.
 	// The index of the variation the flag will default to in all new environments when on.
-	OnVariation *float64 `json:"onVariation,omitempty" tf:"on_variation,omitempty"`
+	OnVariation *int64 `json:"onVariation,omitempty" tf:"on_variation,omitempty"`
 }
 
 type DefaultsObservation struct {
 
 	// (Number) The index of the variation the flag will default to in all new environments when off.
 	// The index of the variation the flag will default to in all new environments when off.
-	OffVariation *float64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
+	OffVariation *int64 `json:"offVariation,omitempty" tf:"off_variation,omitempty"`
 
 	// (Number) The index of the variation the flag will default to in all new environments when on.
 	// The index of the variation the flag will default to in all new environments when on.
-	OnVariation *float64 `json:"onVariation,omitempty" tf:"on_variation,omitempty"`
+	OnVariation *int64 `json:"onVariation,omitempty" tf:"on_variation,omitempty"`
 }
 
 type DefaultsParameters struct {
@@ -123,12 +123,12 @@ type DefaultsParameters struct {
 	// (Number) The index of the variation the flag will default to in all new environments when off.
 	// The index of the variation the flag will default to in all new environments when off.
 	// +kubebuilder:validation:Optional
-	OffVariation *float64 `json:"offVariation" tf:"off_variation,omitempty"`
+	OffVariation *int64 `json:"offVariation" tf:"off_variation,omitempty"`
 
 	// (Number) The index of the variation the flag will default to in all new environments when on.
 	// The index of the variation the flag will default to in all new environments when on.
 	// +kubebuilder:validation:Optional
-	OnVariation *float64 `json:"onVariation" tf:"on_variation,omitempty"`
+	OnVariation *int64 `json:"onVariation" tf:"on_variation,omitempty"`
 }
 
 type FeatureFlagInitParameters struct {

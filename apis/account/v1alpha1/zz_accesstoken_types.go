@@ -31,7 +31,7 @@ type AccessTokenInitParameters struct {
 
 	// (Number) The default API version for this token. Defaults to the latest API version. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The default API version for this token. Defaults to the latest API version. A change in this field will force the destruction of the existing resource and the creation of a new one.
-	DefaultAPIVersion *float64 `json:"defaultApiVersion,omitempty" tf:"default_api_version,omitempty"`
+	DefaultAPIVersion *int64 `json:"defaultApiVersion,omitempty" tf:"default_api_version,omitempty"`
 
 	// in or custom role. Using polices. May be specified more than once. (see below for nested schema)
 	// Define inline custom roles. An array of statements represented as config blocks with three attributes: effect, resources, actions. May be used in place of a built-in or custom role. [Using polices](https://docs.launchdarkly.com/home/members/role-policies). May be specified more than once.
@@ -59,7 +59,7 @@ type AccessTokenObservation struct {
 
 	// (Number) The default API version for this token. Defaults to the latest API version. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The default API version for this token. Defaults to the latest API version. A change in this field will force the destruction of the existing resource and the creation of a new one.
-	DefaultAPIVersion *float64 `json:"defaultApiVersion,omitempty" tf:"default_api_version,omitempty"`
+	DefaultAPIVersion *int64 `json:"defaultApiVersion,omitempty" tf:"default_api_version,omitempty"`
 
 	// (String) The ID of this resource.
 	ID *string `json:"id,omitempty" tf:"id,omitempty"`
@@ -101,7 +101,7 @@ type AccessTokenParameters struct {
 	// (Number) The default API version for this token. Defaults to the latest API version. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// The default API version for this token. Defaults to the latest API version. A change in this field will force the destruction of the existing resource and the creation of a new one.
 	// +kubebuilder:validation:Optional
-	DefaultAPIVersion *float64 `json:"defaultApiVersion,omitempty" tf:"default_api_version,omitempty"`
+	DefaultAPIVersion *int64 `json:"defaultApiVersion,omitempty" tf:"default_api_version,omitempty"`
 
 	// in or custom role. Using polices. May be specified more than once. (see below for nested schema)
 	// Define inline custom roles. An array of statements represented as config blocks with three attributes: effect, resources, actions. May be used in place of a built-in or custom role. [Using polices](https://docs.launchdarkly.com/home/members/role-policies). May be specified more than once.

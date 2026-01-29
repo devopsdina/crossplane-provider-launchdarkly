@@ -25,6 +25,7 @@ import (
 	"github.com/launchdarkly/crossplane-provider-launchdarkly/config/webhook"
 
 	ujconfig "github.com/crossplane/upjet/v2/pkg/config"
+	ldProvider "github.com/launchdarkly/terraform-provider-launchdarkly/launchdarkly"
 )
 
 const (
@@ -42,7 +43,16 @@ var providerMetadata string
 func GetProvider() *ujconfig.Provider {
 	pc := ujconfig.NewProvider([]byte(providerSchema), resourcePrefix, modulePath, []byte(providerMetadata),
 		ujconfig.WithRootGroup("launchdarkly.com"),
-		ujconfig.WithIncludeList(ExternalNameConfigured()),
+		ujconfig.WithIncludeList([]string{}), // disable fork mode
+
+		// SDK v2 no-fork mode (most resources)
+		ujconfig.WithTerraformPluginSDKIncludeList(SDKResourcesConfigured()),
+		ujconfig.WithTerraformProvider(ldProvider.Provider()),
+
+		// Plugin Framework no-fork mode (team_role_mapping)
+		ujconfig.WithTerraformPluginFrameworkIncludeList(FrameworkResourcesConfigured()),
+		ujconfig.WithTerraformPluginFrameworkProvider(ldProvider.NewPluginProvider("2.25.3")()),
+
 		ujconfig.WithFeaturesPackage("internal/features"),
 		ujconfig.WithDefaultResourceOptions(
 			ExternalNameConfigurations(),

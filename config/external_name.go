@@ -43,6 +43,34 @@ func ExternalNameConfigurations() config.ResourceOption {
 	}
 }
 
+// PluginFrameworkResources contains resources implemented with Terraform Plugin Framework
+// (as opposed to SDK v2). These require different upjet configuration.
+var PluginFrameworkResources = map[string]bool{
+	"launchdarkly_team_role_mapping": true,
+}
+
+// SDKResourcesConfigured returns the list of SDK v2 resources (excludes Plugin Framework resources).
+func SDKResourcesConfigured() []string {
+	var l []string
+	for name := range ExternalNameConfigs {
+		if !PluginFrameworkResources[name] {
+			// $ is added to match the exact string since the format is regex.
+			l = append(l, name+"$")
+		}
+	}
+	return l
+}
+
+// FrameworkResourcesConfigured returns the list of Plugin Framework resources.
+func FrameworkResourcesConfigured() []string {
+	var l []string
+	for name := range PluginFrameworkResources {
+		// $ is added to match the exact string since the format is regex.
+		l = append(l, name+"$")
+	}
+	return l
+}
+
 // ExternalNameConfigured returns the list of all resources whose external name
 // is configured manually.
 func ExternalNameConfigured() []string {

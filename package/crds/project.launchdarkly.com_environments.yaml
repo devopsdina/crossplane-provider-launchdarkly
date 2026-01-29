@@ -101,7 +101,8 @@ spec:
                           description: |-
                             (Number) The number of approvals required before an approval request can be applied. This number must be between 1 and 5. Defaults to 1.
                             The number of approvals required before an approval request can be applied. This number must be between 1 and 5. Defaults to 1.
-                          type: number
+                          format: int64
+                          type: integer
                         required:
                           description: |-
                             (Boolean) Set to true for changes to flags in this environment to require approval. You may only set required to true if required_approval_tags is not set and vice versa. Defaults to false.
@@ -124,7 +125,6 @@ spec:
                             - `template` (String) The sys_id of the Standard Change Request Template in ServiceNow that LaunchDarkly will use when creating the change request.
                             - `detail_column` (String) The name of the ServiceNow Change Request column LaunchDarkly uses to populate detailed approval request information. This is most commonly "justification".
                           type: object
-                          x-kubernetes-map-type: granular
                         serviceKind:
                           description: |-
                             (String) The kind of service associated with this approval. This determines which platform is used for requesting approval. Valid values are servicenow, launchdarkly. If you use a value other than launchdarkly, you must have already configured the integration in the LaunchDarkly UI or your apply will fail.
@@ -156,7 +156,8 @@ spec:
                     description: |-
                       (Number) The TTL for the environment. This must be between 0 and 60 minutes. The TTL setting only applies to environments using the PHP SDK. This field will default to 0 when not set. To learn more, read TTL settings.
                       The TTL for the environment. This must be between 0 and 60 minutes. The TTL setting only applies to environments using the PHP SDK. This field will default to `0` when not set. To learn more, read [TTL settings](https://docs.launchdarkly.com/home/organize/environments#ttl-settings).
-                    type: number
+                    format: int64
+                    type: integer
                   key:
                     description: |-
                       unique key for the environment. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -301,7 +302,8 @@ spec:
                           description: |-
                             (Number) The number of approvals required before an approval request can be applied. This number must be between 1 and 5. Defaults to 1.
                             The number of approvals required before an approval request can be applied. This number must be between 1 and 5. Defaults to 1.
-                          type: number
+                          format: int64
+                          type: integer
                         required:
                           description: |-
                             (Boolean) Set to true for changes to flags in this environment to require approval. You may only set required to true if required_approval_tags is not set and vice versa. Defaults to false.
@@ -324,7 +326,6 @@ spec:
                             - `template` (String) The sys_id of the Standard Change Request Template in ServiceNow that LaunchDarkly will use when creating the change request.
                             - `detail_column` (String) The name of the ServiceNow Change Request column LaunchDarkly uses to populate detailed approval request information. This is most commonly "justification".
                           type: object
-                          x-kubernetes-map-type: granular
                         serviceKind:
                           description: |-
                             (String) The kind of service associated with this approval. This determines which platform is used for requesting approval. Valid values are servicenow, launchdarkly. If you use a value other than launchdarkly, you must have already configured the integration in the LaunchDarkly UI or your apply will fail.
@@ -356,7 +357,8 @@ spec:
                     description: |-
                       (Number) The TTL for the environment. This must be between 0 and 60 minutes. The TTL setting only applies to environments using the PHP SDK. This field will default to 0 when not set. To learn more, read TTL settings.
                       The TTL for the environment. This must be between 0 and 60 minutes. The TTL setting only applies to environments using the PHP SDK. This field will default to `0` when not set. To learn more, read [TTL settings](https://docs.launchdarkly.com/home/organize/environments#ttl-settings).
-                    type: number
+                    format: int64
+                    type: integer
                   key:
                     description: |-
                       unique key for the environment. A change in this field will force the destruction of the existing resource and the creation of a new one.
@@ -592,7 +594,8 @@ spec:
                           description: |-
                             (Number) The number of approvals required before an approval request can be applied. This number must be between 1 and 5. Defaults to 1.
                             The number of approvals required before an approval request can be applied. This number must be between 1 and 5. Defaults to 1.
-                          type: number
+                          format: int64
+                          type: integer
                         required:
                           description: |-
                             (Boolean) Set to true for changes to flags in this environment to require approval. You may only set required to true if required_approval_tags is not set and vice versa. Defaults to false.
@@ -615,7 +618,6 @@ spec:
                             - `template` (String) The sys_id of the Standard Change Request Template in ServiceNow that LaunchDarkly will use when creating the change request.
                             - `detail_column` (String) The name of the ServiceNow Change Request column LaunchDarkly uses to populate detailed approval request information. This is most commonly "justification".
                           type: object
-                          x-kubernetes-map-type: granular
                         serviceKind:
                           description: |-
                             (String) The kind of service associated with this approval. This determines which platform is used for requesting approval. Valid values are servicenow, launchdarkly. If you use a value other than launchdarkly, you must have already configured the integration in the LaunchDarkly UI or your apply will fail.
@@ -647,7 +649,8 @@ spec:
                     description: |-
                       (Number) The TTL for the environment. This must be between 0 and 60 minutes. The TTL setting only applies to environments using the PHP SDK. This field will default to 0 when not set. To learn more, read TTL settings.
                       The TTL for the environment. This must be between 0 and 60 minutes. The TTL setting only applies to environments using the PHP SDK. This field will default to `0` when not set. To learn more, read [TTL settings](https://docs.launchdarkly.com/home/organize/environments#ttl-settings).
-                    type: number
+                    format: int64
+                    type: integer
                   id:
                     description: (String) The ID of this resource.
                     type: string

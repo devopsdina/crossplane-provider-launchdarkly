@@ -179,7 +179,7 @@ type EnvironmentSegmentObservation struct {
 
 	// (Number) The segment's creation date represented as a UNIX epoch timestamp.
 	// The segment's creation date represented as a UNIX epoch timestamp.
-	CreationDate *float64 `json:"creationDate,omitempty" tf:"creation_date,omitempty"`
+	CreationDate *int64 `json:"creationDate,omitempty" tf:"creation_date,omitempty"`
 
 	// (String) The description of the segment's purpose.
 	// The description of the segment's purpose.
@@ -412,7 +412,7 @@ type RulesInitParameters struct {
 
 	// (Number) The integer weight of the rule (between 1 and 100000).
 	// The integer weight of the rule (between 1 and 100000).
-	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
+	Weight *int64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
 
 type RulesObservation struct {
@@ -431,7 +431,7 @@ type RulesObservation struct {
 
 	// (Number) The integer weight of the rule (between 1 and 100000).
 	// The integer weight of the rule (between 1 and 100000).
-	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
+	Weight *int64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
 
 type RulesParameters struct {
@@ -454,7 +454,7 @@ type RulesParameters struct {
 	// (Number) The integer weight of the rule (between 1 and 100000).
 	// The integer weight of the rule (between 1 and 100000).
 	// +kubebuilder:validation:Optional
-	Weight *float64 `json:"weight,omitempty" tf:"weight,omitempty"`
+	Weight *int64 `json:"weight,omitempty" tf:"weight,omitempty"`
 }
 
 // EnvironmentSegmentSpec defines the desired state of EnvironmentSegment
