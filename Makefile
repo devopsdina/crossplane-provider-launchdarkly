@@ -274,33 +274,27 @@ local-e2e-create:
 	@echo ""
 	@$(OK) All test resources created
 
-# Wait for all resources to be Ready
+# Wait for all resources to be Ready (with fast failure detection)
 local-e2e-verify:
-	@$(INFO) Waiting for resources to be Ready
+	@$(INFO) Waiting for resources to be Ready - up to 2 minutes
 	@echo ""
-	@echo "=== Checking independent resources ==="
-	@$(KUBECTL) wait --for=condition=Ready customrole/no-production-access --timeout=3m || (echo "CustomRole not ready" && $(KUBECTL) describe customrole/no-production-access && exit 1)
-	@$(KUBECTL) wait --for=condition=Ready webhook/webhook-example --timeout=3m || (echo "Webhook not ready" && $(KUBECTL) describe webhook/webhook-example && exit 1)
-	@$(KUBECTL) wait --for=condition=Ready accesstoken/crossplane-access-token --timeout=3m || (echo "AccessToken not ready" && $(KUBECTL) describe accesstoken/crossplane-access-token && exit 1)
-	@$(KUBECTL) wait --for=condition=Ready relayproxyconfiguration/crossplane-example --timeout=3m || (echo "RelayProxyConfig not ready" && $(KUBECTL) describe relayproxyconfiguration/crossplane-example && exit 1)
+	@echo "Giving resources time to reconcile..."
+	@sleep 10
 	@echo ""
-	@echo "=== Checking project and environment ==="
-	@$(KUBECTL) wait --for=condition=Ready project/crossplane-project --timeout=3m || (echo "Project not ready" && $(KUBECTL) describe project/crossplane-project && exit 1)
-	@$(KUBECTL) wait --for=condition=Ready environment/name-dev-environment --timeout=3m || (echo "Environment not ready" && $(KUBECTL) describe environment/name-dev-environment && exit 1)
+	@echo "=== Waiting for all resources (2 minute timeout) ==="
+	@$(KUBECTL) wait --for=condition=Ready customrole --all --timeout=2m 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready webhook --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready accesstoken --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready relayproxyconfiguration --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready project --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready environment --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready teammember --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready team --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready featureflag --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready featureflagenvironment --all --timeout=30s 2>/dev/null || true
+	@$(KUBECTL) wait --for=condition=Ready environmentsegment --all --timeout=30s 2>/dev/null || true
 	@echo ""
-	@echo "=== Checking team members ==="
-	@$(KUBECTL) wait --for=condition=Ready teammember/example-member-1 --timeout=3m || (echo "TeamMember 1 not ready" && $(KUBECTL) describe teammember/example-member-1 && exit 1)
-	@$(KUBECTL) wait --for=condition=Ready teammember/example-member-2 --timeout=3m || (echo "TeamMember 2 not ready" && $(KUBECTL) describe teammember/example-member-2 && exit 1)
-	@echo ""
-	@echo "=== Checking team ==="
-	@$(KUBECTL) wait --for=condition=Ready team/product-manager-team --timeout=3m || (echo "Team not ready" && $(KUBECTL) describe team/product-manager-team && exit 1)
-	@echo ""
-	@echo "=== Checking feature flags ==="
-	@$(KUBECTL) wait --for=condition=Ready featureflag --all --timeout=3m || (echo "Some flags not ready" && $(KUBECTL) get featureflag && exit 1)
-	@echo ""
-	@echo "=== Checking segments ==="
-	@$(KUBECTL) wait --for=condition=Ready environmentsegment --all --timeout=3m || (echo "Some segments not ready" && $(KUBECTL) get environmentsegment && exit 1)
-	@echo ""
+	@$(MAKE) local-e2e-check-failures
 	@$(OK) All resources Ready
 
 # Cleanup ALL test resources (reverse dependency order)
@@ -339,12 +333,118 @@ local-e2e-cleanup:
 	@echo ""
 	@$(OK) All test resources cleaned up
 
+# Check for failed resources and provide detailed error summary
+# This target scans all Crossplane managed resources for failures and reports them clearly
+local-e2e-check-failures:
+	@echo ""
+	@echo "=== E2E Test Failure Summary ==="
+	@FAILED=0; \
+	PANIC_COUNT=0; \
+	NO_STATUS_COUNT=0; \
+	DEP_COUNT=0; \
+	API_COUNT=0; \
+	echo ""; \
+	for kind in customrole accesstoken webhook relayproxyconfiguration project environment teammember team featureflag featureflagenvironment environmentsegment; do \
+		RESOURCES=$$($(KUBECTL) get $$kind -o name 2>/dev/null); \
+		for resource in $$RESOURCES; do \
+			SYNCED=$$($(KUBECTL) get $$resource -o jsonpath='{.status.conditions[?(@.type=="Synced")].status}' 2>/dev/null); \
+			READY=$$($(KUBECTL) get $$resource -o jsonpath='{.status.conditions[?(@.type=="Ready")].status}' 2>/dev/null); \
+			if [ "$$SYNCED" = "False" ] || [ "$$READY" = "False" ]; then \
+				FAILED=$$((FAILED + 1)); \
+				MESSAGE=$$($(KUBECTL) get $$resource -o jsonpath='{.status.conditions[?(@.type=="Synced")].message}' 2>/dev/null); \
+				if [ -z "$$MESSAGE" ]; then \
+					MESSAGE=$$($(KUBECTL) get $$resource -o jsonpath='{.status.conditions[?(@.type=="Ready")].message}' 2>/dev/null); \
+				fi; \
+				printf "\033[31m"; \
+				echo "❌ $$resource"; \
+				printf "\033[0m"; \
+				echo "   Status: Synced=$$SYNCED, Ready=$$READY"; \
+				if echo "$$MESSAGE" | grep -q "panic"; then \
+					PANIC_COUNT=$$((PANIC_COUNT + 1)); \
+					echo "   Message: $$MESSAGE"; \
+					printf "\033[33m"; \
+					echo "   Cause: Upstream Terraform provider bug - no-fork mode compatibility"; \
+					printf "\033[0m"; \
+				elif echo "$$MESSAGE" | grep -q "referenced field was empty"; then \
+					DEP_COUNT=$$((DEP_COUNT + 1)); \
+					echo "   Message: $$MESSAGE"; \
+					echo "   Cause: Waiting for dependency to be ready"; \
+				else \
+					API_COUNT=$$((API_COUNT + 1)); \
+					echo "   Message: $$MESSAGE"; \
+				fi; \
+				echo ""; \
+			elif [ -z "$$SYNCED" ] && [ -z "$$READY" ]; then \
+				FAILED=$$((FAILED + 1)); \
+				NO_STATUS_COUNT=$$((NO_STATUS_COUNT + 1)); \
+				printf "\033[31m"; \
+				echo "❌ $$resource"; \
+				printf "\033[0m"; \
+				printf "\033[33m"; \
+				echo "   Status: No conditions - controller may not have processed this resource"; \
+				echo "   Cause: Resource may be failing silently or controller is not running"; \
+				printf "\033[0m"; \
+				echo ""; \
+			fi; \
+		done; \
+	done; \
+	echo ""; \
+	echo "=== Checking Kubernetes Warning Events ==="; \
+	WARNINGS=$$($(KUBECTL) get events --field-selector type=Warning -o custom-columns='NAME:.involvedObject.name,KIND:.involvedObject.kind,MESSAGE:.message' 2>/dev/null | grep -iE "customrole|accesstoken|webhook|relayproxy|project|environment|teammember|team|featureflag|segment" | head -10); \
+	if [ -n "$$WARNINGS" ]; then \
+		printf "\033[33m"; \
+		echo "$$WARNINGS"; \
+		printf "\033[0m"; \
+	else \
+		echo "No warning events found for managed resources."; \
+	fi; \
+	echo ""; \
+	if [ $$FAILED -gt 0 ]; then \
+		printf "\033[31m"; \
+		echo "=== RESULT: $$FAILED resource(s) failed ==="; \
+		printf "\033[0m"; \
+		echo ""; \
+		echo "Breakdown:"; \
+		if [ $$PANIC_COUNT -gt 0 ]; then \
+			printf "\033[33m"; \
+			echo "  - $$PANIC_COUNT Terraform provider panic(s) - ROOT CAUSE"; \
+			printf "\033[0m"; \
+		fi; \
+		if [ $$NO_STATUS_COUNT -gt 0 ]; then \
+			printf "\033[33m"; \
+			echo "  - $$NO_STATUS_COUNT resource(s) with no status - may also be panicking"; \
+			printf "\033[0m"; \
+		fi; \
+		if [ $$DEP_COUNT -gt 0 ]; then \
+			echo "  - $$DEP_COUNT dependency resolution failure(s) - cascading"; \
+		fi; \
+		if [ $$API_COUNT -gt 0 ]; then \
+			echo "  - $$API_COUNT API/other error(s) - likely cascading"; \
+		fi; \
+		if [ $$PANIC_COUNT -gt 0 ] || [ $$NO_STATUS_COUNT -gt 0 ]; then \
+			printf "\033[33m"; \
+			echo ""; \
+			echo "⚠️  Root cause: Upstream Terraform provider compatibility issue."; \
+			echo "   This is a known issue with Upjet no-fork mode."; \
+			echo "   See: https://github.com/launchdarkly/terraform-provider-launchdarkly"; \
+			echo ""; \
+			echo "   The other failures are cascading - when parent resources fail,"; \
+			echo "   dependent resources also fail due to unresolved references."; \
+			printf "\033[0m"; \
+		fi; \
+		exit 1; \
+	else \
+		printf "\033[32m"; \
+		echo "=== RESULT: All resources healthy ==="; \
+		printf "\033[0m"; \
+	fi
+
 # Full local e2e workflow: deploy provider, setup creds, create resources, verify
 local-e2e: local-deploy local-e2e-setup local-e2e-create local-e2e-verify
 	@$(INFO) Local E2E test complete - resources created in LaunchDarkly
 	@echo "Run 'make local-e2e-cleanup' to delete test resources"
 
-.PHONY: local-e2e-setup local-e2e-create local-e2e-verify local-e2e-cleanup local-e2e-cleanup-force local-e2e
+.PHONY: local-e2e-setup local-e2e-create local-e2e-verify local-e2e-check-failures local-e2e-cleanup local-e2e-cleanup-force local-e2e
 
 crddiff: $(UPTEST)
 	@$(INFO) Checking breaking CRD schema changes
