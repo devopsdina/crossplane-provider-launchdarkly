@@ -1,5 +1,21 @@
 # Changelog
 
+## [0.7.0](https://github.com/launchdarkly/crossplane-provider-launchdarkly/compare/v0.6.0...v0.7.0) (2026-02-05)
+
+
+### Features
+
+* Migrate Crossplane architecture to no-fork mode, remediate critical and high CVEs, add local e2e testing ([#56](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/56)) ([1cc8c4c](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/1cc8c4cdf383ecf7ceb17c47be263fe4a7d495ef))
+
+## [0.6.0](https://github.com/launchdarkly/crossplane-provider-launchdarkly/compare/v0.5.0...v0.6.0) (2026-01-28)
+
+
+### Features
+
+* Update the crossplane provider to 2.0 using Go 1.25 ([#55](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/55)) ([fc36d7a](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/fc36d7a2d3ca589b9da375d3c0b93f8babc80d2d))
+* Bump terraform provider to version 2.25.3 ([#46](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/46)) ([4c2f532](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/4c2f53253032948c889363e702b69d1d703ddabd))
+* Bump terraform provider to version 2.25.2 ([#45](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/45)) ([3a2cd22](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/3a2cd228f87b696f2b9ca6de17614fcf1c98d374))
+
 ## [0.5.0](https://github.com/launchdarkly/crossplane-provider-launchdarkly/compare/v0.4.0...v0.5.0) (2026-01-28)
 
 
@@ -7,9 +23,6 @@
 
 * [REL-8393] add metric resource ([#44](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/44)) ([eb6ffb8](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/eb6ffb8d93e2756837dc57a353783834eecb96d1))
 * Bump terraform provider to version 2.25.1 ([#42](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/42)) ([fb6a646](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/fb6a6469f4498c10ce84d47d4a042ae5d5a0c745))
-* Bump terraform provider to version 2.25.2 ([#45](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/45)) ([3a2cd22](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/3a2cd228f87b696f2b9ca6de17614fcf1c98d374))
-* Bump terraform provider to version 2.25.3 ([#46](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/46)) ([4c2f532](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/4c2f53253032948c889363e702b69d1d703ddabd))
-* Update the crossplane provider to 2.0 using Go 1.25  ([#55](https://github.com/launchdarkly/crossplane-provider-launchdarkly/issues/55)) ([fc36d7a](https://github.com/launchdarkly/crossplane-provider-launchdarkly/commit/fc36d7a2d3ca589b9da375d3c0b93f8babc80d2d))
 
 ## [0.4.0](https://github.com/launchdarkly/crossplane-provider-launchdarkly/compare/v0.3.0...v0.4.0) (2025-03-20)
 
