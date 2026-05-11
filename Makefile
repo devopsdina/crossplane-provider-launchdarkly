@@ -517,9 +517,9 @@ local-e2e-check-failures:
 # Full local e2e workflow: deploy provider, setup creds, create resources, verify
 local-e2e: local-deploy local-e2e-setup local-e2e-create local-e2e-verify
 	@$(INFO) Local E2E test complete - resources created in LaunchDarkly
-	@echo "Tear down Kind + test resources: make local-e2e-cleanup"
+	@echo "Run 'make local-e2e-cleanup' to delete test resources"
 
-.PHONY: local-e2e-setup local-e2e-create local-e2e-verify local-e2e-check-failures local-e2e-cleanup local-e2e-cleanup-do local-e2e
+.PHONY: local-e2e-setup local-e2e-create local-e2e-verify local-e2e-check-failures local-e2e-cleanup local-e2e-cleanup-force local-e2e
 
 crddiff: $(UPTEST)
 	@$(INFO) Checking breaking CRD schema changes
