@@ -17,6 +17,7 @@ import (
 	"github.com/crossplane/upjet/v2/pkg/terraform"
 	tfsdk "github.com/hashicorp/terraform-plugin-sdk/v2/terraform"
 	ldProvider "github.com/launchdarkly/terraform-provider-launchdarkly/launchdarkly"
+
 	"github.com/launchdarkly/crossplane-provider-launchdarkly/internal/version"
 
 	"github.com/launchdarkly/crossplane-provider-launchdarkly/apis/v1beta1"
