@@ -148,6 +148,7 @@ type FeatureFlagInitParameters struct {
 	// A block containing the indices of the variations to be used as the default on and off variations in all new environments. Flag configurations in existing environments will not be changed nor updated if the configuration block is removed.
 	Defaults []DefaultsInitParameters `json:"defaults,omitempty" tf:"defaults,omitempty"`
 
+	// (Boolean) Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
 	// Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
 	Deprecated *bool `json:"deprecated,omitempty" tf:"deprecated,omitempty"`
 
@@ -224,6 +225,7 @@ type FeatureFlagObservation struct {
 	// A block containing the indices of the variations to be used as the default on and off variations in all new environments. Flag configurations in existing environments will not be changed nor updated if the configuration block is removed.
 	Defaults []DefaultsObservation `json:"defaults,omitempty" tf:"defaults,omitempty"`
 
+	// (Boolean) Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
 	// Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
 	Deprecated *bool `json:"deprecated,omitempty" tf:"deprecated,omitempty"`
 
@@ -298,6 +300,7 @@ type FeatureFlagParameters struct {
 	// +kubebuilder:validation:Optional
 	Defaults []DefaultsParameters `json:"defaults,omitempty" tf:"defaults,omitempty"`
 
+	// (Boolean) Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
 	// Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
 	// +kubebuilder:validation:Optional
 	Deprecated *bool `json:"deprecated,omitempty" tf:"deprecated,omitempty"`

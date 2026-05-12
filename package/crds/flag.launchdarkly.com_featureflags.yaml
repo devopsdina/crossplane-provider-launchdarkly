@@ -142,9 +142,9 @@ spec:
                       type: object
                     type: array
                   deprecated:
-                    description: Specifies whether the flag is deprecated or not.
-                      Note that you cannot create a new flag that is deprecated, but
-                      can update a flag to be deprecated.
+                    description: |-
+                      (Boolean) Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
+                      Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
                     type: boolean
                   description:
                     description: |-
@@ -380,9 +380,9 @@ spec:
                       type: object
                     type: array
                   deprecated:
-                    description: Specifies whether the flag is deprecated or not.
-                      Note that you cannot create a new flag that is deprecated, but
-                      can update a flag to be deprecated.
+                    description: |-
+                      (Boolean) Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
+                      Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
                     type: boolean
                   description:
                     description: |-
@@ -709,9 +709,9 @@ spec:
                       type: object
                     type: array
                   deprecated:
-                    description: Specifies whether the flag is deprecated or not.
-                      Note that you cannot create a new flag that is deprecated, but
-                      can update a flag to be deprecated.
+                    description: |-
+                      (Boolean) Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
+                      Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
                     type: boolean
                   description:
                     description: |-

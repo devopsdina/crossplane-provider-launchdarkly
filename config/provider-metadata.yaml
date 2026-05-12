@@ -56,6 +56,128 @@ resources:
             service_token: (Boolean) Whether the token will be a service token. A change in this field will force the destruction of the existing resource and the creation of a new one.
             token: (String, Sensitive) The access token used to authorize usage of the LaunchDarkly API.
         importStatements: []
+    launchdarkly_ai_config:
+        subCategory: ""
+        description: Provides a LaunchDarkly AI Config resource. This resource allows you to create and manage AI Configurations within your LaunchDarkly project.
+        name: launchdarkly_ai_config
+        title: launchdarkly_ai_config Resource - launchdarkly
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "description": "AI assistant for customer support",
+                  "key": "customer-assistant",
+                  "mode": "completion",
+                  "name": "Customer Assistant",
+                  "project_key": "${launchdarkly_project.example.key}",
+                  "tags": [
+                    "support"
+                  ]
+                }
+              references:
+                project_key: launchdarkly_project.example.key
+        argumentDocs:
+            creation_date: (Number) A timestamp of when the AI Config was created.
+            description: (String) The AI Config's description.
+            evaluation_metric_key: (String) The key of the evaluation metric associated with this AI Config.
+            id: (String) The ID of this resource.
+            is_inverted: (Boolean) Whether the evaluation metric is inverted.
+            key: (String) The AI Config's unique key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            maintainer_id: (String) The member ID of the maintainer for this AI Config. Conflicts with maintainer_team_key.
+            maintainer_team_key: (String) The team key of the maintainer team for this AI Config. Conflicts with maintainer_id.
+            mode: (String) The AI Config's mode. Must be completion, agent, or judge. Defaults to completion. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            name: (String) The AI Config's human-readable name.
+            project_key: (String) The project key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            tags: (Set of String) Tags associated with your resource.
+            variation_id: (String)
+            variations: (List of Object) A list of variation summaries for this AI Config. (see below for nested schema)
+            version: (Number) The version of the AI Config.
+        importStatements:
+            - |-
+              # LaunchDarkly AI Configs can be imported using the format `project_key/config_key`
+              terraform import launchdarkly_ai_config.example example-project/customer-assistant
+    launchdarkly_ai_config_variation:
+        subCategory: ""
+        description: Provides a LaunchDarkly AI Config variation resource. This resource allows you to create and manage AI Config variations within your LaunchDarkly project.
+        name: launchdarkly_ai_config_variation
+        title: launchdarkly_ai_config_variation Resource - launchdarkly
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "config_key": "${launchdarkly_ai_config.example.key}",
+                  "key": "helpful-v1",
+                  "messages": [
+                    {
+                      "content": "You are a helpful customer support assistant.",
+                      "role": "system"
+                    },
+                    {
+                      "content": "{{ ldctx.query }}",
+                      "role": "user"
+                    }
+                  ],
+                  "model_config_key": "${launchdarkly_model_config.example.key}",
+                  "name": "Helpful V1",
+                  "project_key": "${launchdarkly_project.example.key}"
+                }
+              references:
+                config_key: launchdarkly_ai_config.example.key
+                model_config_key: launchdarkly_model_config.example.key
+                project_key: launchdarkly_project.example.key
+        argumentDocs:
+            config_key: (String) The AI Config key that this variation belongs to. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            content: (String) The content of the message.
+            creation_date: (Number) The creation timestamp of the variation.
+            description: (String) The variation's description (used in agent mode).
+            id: (String) The ID of this resource.
+            instructions: (String) The variation's instructions (used in agent mode).
+            key: (String) The variation's unique key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            messages: (Block List) A list of messages for completion mode. Each message has a role and content. (see below for nested schema)
+            model: (String) A JSON string representing the inline model configuration for the variation. Conflicts with model_config_key.
+            model_config_key: (String) The key of a model config resource to use for this variation. Conflicts with model.
+            name: (String) The variation's human-readable name.
+            project_key: (String) The project key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            role: (String) The role of the message. Must be one of system, user, assistant, or developer.
+            state: (String) The state of the variation. Must be archived or published.
+            tool_keys: '(Set of String) A set of AI tool keys to associate with this variation. Note: The API does not currently return tool associations on read, so Terraform cannot detect drift for this field. Changes made outside of Terraform will not be reflected in state.'
+            variation_id: (String) The internal ID of the variation.
+            version: (Number) The version number of the variation.
+        importStatements:
+            - |-
+              # LaunchDarkly AI Config variations can be imported using the format `project_key/config_key/variation_key`
+              terraform import launchdarkly_ai_config_variation.example example-project/customer-assistant/helpful-v1
+    launchdarkly_ai_tool:
+        subCategory: ""
+        description: Provides a LaunchDarkly AI tool resource. This resource allows you to create and manage AI tools within your LaunchDarkly project.
+        name: launchdarkly_ai_tool
+        title: launchdarkly_ai_tool Resource - launchdarkly
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "description": "Search the web for information",
+                  "key": "web-search",
+                  "project_key": "${launchdarkly_project.example.key}",
+                  "schema_json": "${jsonencode({\n    type = \"object\"\n    properties = {\n      query = {\n        type        = \"string\"\n        description = \"The search query\"\n      }\n    }\n    required = [\"query\"]\n  })}"
+                }
+              references:
+                project_key: launchdarkly_project.example.key
+        argumentDocs:
+            creation_date: (Number) The creation timestamp of the AI tool.
+            custom_parameters: (String) A JSON string representing custom application-level metadata for the AI tool.
+            description: (String) The AI tool's description.
+            id: (String) The ID of this resource.
+            key: (String) The AI tool's unique key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            maintainer_id: (String) The member ID of the maintainer for this AI tool. Conflicts with maintainer_team_key.
+            maintainer_team_key: (String) The team key of the maintainer team for this AI tool. Conflicts with maintainer_id.
+            project_key: (String) The project key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            schema_json: (String) A JSON string representing the JSON Schema for the tool's parameters.
+            version: (Number) The version of the AI tool.
+        importStatements:
+            - |-
+              # LaunchDarkly AI tools can be imported using the format `project_key/tool_key`
+              terraform import launchdarkly_ai_tool.example example-project/web-search
     launchdarkly_audit_log_subscription:
         subCategory: ""
         description: Provides a LaunchDarkly audit log subscription resource. This resource allows you to create and manage LaunchDarkly audit log subscriptions.
@@ -458,6 +580,7 @@ resources:
             client_side_availability: (Block List) (see below for nested schema)
             custom_properties: '(Block Set, Max: 64) List of nested blocks describing the feature flag''s custom properties (see below for nested schema)'
             defaults: '(Block List, Max: 1) A block containing the indices of the variations to be used as the default on and off variations in all new environments. Flag configurations in existing environments will not be changed nor updated if the configuration block is removed. (see below for nested schema)'
+            deprecated: (Boolean) Specifies whether the flag is deprecated or not. Note that you cannot create a new flag that is deprecated, but can update a flag to be deprecated.
             description: (String) The feature flag's description.
             id: (String) The ID of this resource.
             include_in_snippet: (Boolean, Deprecated) Specifies whether this flag should be made available to the client-side JavaScript SDK using the client-side Id. This value gets its default from your project configuration if not set. include_in_snippet is now deprecated. Please migrate to client_side_availability.using_environment_id to maintain future compatibility.
@@ -824,6 +947,26 @@ resources:
             project_key: (String) The unique key of the project encompassing the associated flag. A change in this field will force the destruction of the existing resource and the creation of a new one.
             trigger_url: (String, Sensitive) The unique URL used to invoke the trigger.
         importStatements: []
+    launchdarkly_ip_allowlist_config Resource - launchdarkly:
+        subCategory: ""
+        description: 'Provides a LaunchDarkly IP allowlist configuration resource. -> Note: IP allowlists are available to customers on an Enterprise LaunchDarkly plan. To learn more, read about our pricing https://launchdarkly.com/pricing/. To upgrade your plan, contact LaunchDarkly Sales https://launchdarkly.com/contact-sales/. ~> Beta: This resource uses a beta API. Beta resources may change or be removed in future versions. This resource allows you to manage the IP allowlist configuration for your LaunchDarkly account. There is only one configuration per account, so you should define only a single instance of this resource.'
+        name: launchdarkly_ip_allowlist_config Resource - launchdarkly
+        title: launchdarkly_ip_allowlist_config Resource - launchdarkly
+        argumentDocs:
+            id: (String) The ID of this resource.
+            scoped_allowlist_enabled: (Boolean) Whether the scoped (API token) IP allowlist is enabled.
+            session_allowlist_enabled: (Boolean) Whether the session IP allowlist is enabled.
+        importStatements: []
+    launchdarkly_ip_allowlist_entry Resource - launchdarkly:
+        subCategory: ""
+        description: 'Provides a LaunchDarkly IP allowlist entry resource. -> Note: IP allowlists are available to customers on an Enterprise LaunchDarkly plan. To learn more, read about our pricing https://launchdarkly.com/pricing/. To upgrade your plan, contact LaunchDarkly Sales https://launchdarkly.com/contact-sales/. ~> Beta: This resource uses a beta API. Beta resources may change or be removed in future versions. This resource allows you to create and manage IP allowlist entries within your LaunchDarkly account.'
+        name: launchdarkly_ip_allowlist_entry Resource - launchdarkly
+        title: launchdarkly_ip_allowlist_entry Resource - launchdarkly
+        argumentDocs:
+            description: (String) A human-readable description of the IP allowlist entry.
+            id: (String) The ID of this resource.
+            ip_address: (String) The IP address or CIDR block for the allowlist entry. Changing this forces a new resource to be created.
+        importStatements: []
     launchdarkly_metric:
         subCategory: ""
         description: Provides a LaunchDarkly metric resource. This resource allows you to create and manage metrics within your LaunchDarkly organization. To learn more about metrics and experimentation, read Experimentation Documentation https://docs.launchdarkly.com/home/experimentation.
@@ -879,6 +1022,46 @@ resources:
             - |-
               # LaunchDarkly metrics can be imported using the metric's ID in the form `project_key/metric_key`
               terraform import launchdarkly_metric.example example-project/example-metric-key
+    launchdarkly_model_config:
+        subCategory: ""
+        description: 'Provides a LaunchDarkly model config resource. This resource allows you to create and manage AI model configurations within your LaunchDarkly project. Since the API does not support updates, any field change will force recreation of the resource. ~> Important: If an launchdarkly_ai_config_variation references this model config via model_config_key, use a Terraform resource reference (e.g. launchdarkly_model_config.example.key) so Terraform can order destruction correctly. A literal string key will cause the delete to fail because the API rejects deleting a model config that is still in use.'
+        name: launchdarkly_model_config
+        title: launchdarkly_model_config Resource - launchdarkly
+        examples:
+            - name: example
+              manifest: |-
+                {
+                  "cost_per_input_token": 0.00001,
+                  "key": "gpt-4-turbo",
+                  "model_id": "gpt-4-turbo",
+                  "model_provider": "openai",
+                  "name": "GPT-4 Turbo",
+                  "project_key": "${launchdarkly_project.example.key}",
+                  "tags": [
+                    "production"
+                  ]
+                }
+              references:
+                project_key: launchdarkly_project.example.key
+        argumentDocs:
+            cost_per_input_token: (Number) The cost per input token for the model. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            cost_per_output_token: (Number) The cost per output token for the model. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            custom_parameters: (String) A JSON string representing custom parameters for the model config. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            global: (Boolean) Whether the model config is available globally.
+            icon: (String) The icon for the model config. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            id: (String) The ID of this resource.
+            key: (String) The model config's unique key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            model_id: (String) The model identifier (e.g. gpt-4, claude-3). A change in this field will force the destruction of the existing resource and the creation of a new one.
+            model_provider: (String) The provider name for the model config (e.g. openai, anthropic). A change in this field will force the destruction of the existing resource and the creation of a new one.
+            name: (String) The model config's human-readable name. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            params: '(String) A JSON string representing the model parameters (e.g. {"temperature": 0.7, "maxTokens": 4096}). A change in this field will force the destruction of the existing resource and the creation of a new one.'
+            project_key: (String) The project key. A change in this field will force the destruction of the existing resource and the creation of a new one.
+            tags: (Set of String) Tags associated with your resource.
+            version: (Number) The version of the model config.
+        importStatements:
+            - |-
+              # LaunchDarkly model configs can be imported using the format `project_key/model_config_key`
+              terraform import launchdarkly_model_config.example example-project/gpt-4-turbo
     launchdarkly_project:
         subCategory: ""
         description: Provides a LaunchDarkly project resource. This resource allows you to create and manage projects within your LaunchDarkly organization.
@@ -1379,7 +1562,7 @@ resources:
         importStatements: []
     launchdarkly_view:
         subCategory: ""
-        description: Provides a LaunchDarkly view resource. This resource allows you to create and manage views within your LaunchDarkly project.
+        description: 'Provides a LaunchDarkly view resource. -> Note: Views are available to customers on an Enterprise LaunchDarkly plan. To learn more, read about our pricing https://launchdarkly.com/pricing/. To upgrade your plan, contact LaunchDarkly Sales https://launchdarkly.com/contact-sales/. ~> Beta: This resource uses a beta API. Beta resources may change or be removed in future versions. This resource allows you to create and manage views within your LaunchDarkly project.'
         name: launchdarkly_view
         title: launchdarkly_view Resource - launchdarkly
         examples:
@@ -1412,7 +1595,6 @@ resources:
         argumentDocs:
             archived: (Boolean) Whether the view is archived.
             description: (String) The view's description.
-            generate_sdk_keys: (Boolean) Whether to generate SDK keys for this view.
             id: (String) The ID of this resource.
             key: (String) The view's unique key. A change in this field will force the destruction of the existing resource and the creation of a new one.
             maintainer_id: (String) The member ID of the maintainer for this view. Exactly one of maintainer_id and maintainer_team_key must be set.
@@ -1423,7 +1605,7 @@ resources:
         importStatements: []
     launchdarkly_view_filter_links:
         subCategory: ""
-        description: 'Provides a LaunchDarkly view filter links resource for linking resources to views using filter expressions. This resource allows you to link all flags and/or segments matching a filter expression to a specific view. The filter is resolved at apply time — the backend finds all resources matching the filter and links them to the view. -> Note: Filter-based links are point-in-time. By default, filters are resolved only when this resource is created or updated (for example, when flag_filter changes). Set reconcile_on_apply = true to force re-resolution on every terraform apply. When to use which resource view_links: You know the exact flag/segment keys to link. Terraform tracks the explicit list and detects drift if links are removed externally.view_filter_links (this resource): You want to link all resources matching a dynamic query (e.g. all flags tagged "frontend"). No drift detection on resolved keys. By default, only resource argument changes trigger updates; set reconcile_on_apply to refresh links every apply.view_keys on individual resources: Each flag/segment declares its own view membership. Best for modular Terraform structures. -> Warning: Do not use view_filter_links and view_links targeting the same view and resource type, as conflicts may cause unexpected behavior.'
+        description: 'Provides a LaunchDarkly view filter links resource for linking resources to views using filter expressions. -> Note: Views are available to customers on an Enterprise LaunchDarkly plan. To learn more, read about our pricing https://launchdarkly.com/pricing/. To upgrade your plan, contact LaunchDarkly Sales https://launchdarkly.com/contact-sales/. ~> Beta: This resource uses a beta API. Beta resources may change or be removed in future versions. This resource allows you to link all flags and/or segments matching a filter expression to a specific view. The filter is resolved at apply time — the backend finds all resources matching the filter and links them to the view. -> Note: Filter-based links are point-in-time. By default, filters are resolved only when this resource is created or updated (for example, when flag_filter changes). Set reconcile_on_apply = true to force re-resolution on every terraform apply. When to use which resource view_links: You know the exact flag/segment keys to link. Terraform tracks the explicit list and detects drift if links are removed externally.view_filter_links (this resource): You want to link all resources matching a dynamic query (e.g. all flags tagged "frontend"). No drift detection on resolved keys. By default, only resource argument changes trigger updates; set reconcile_on_apply to refresh links every apply.view_keys on individual resources: Each flag/segment declares its own view membership. Best for modular Terraform structures. -> Warning: Do not use view_filter_links and view_links targeting the same view and resource type, as conflicts may cause unexpected behavior.'
         name: launchdarkly_view_filter_links
         title: launchdarkly_view_filter_links Resource - launchdarkly
         examples:
@@ -1469,7 +1651,7 @@ resources:
         importStatements: []
     launchdarkly_view_links:
         subCategory: ""
-        description: 'Provides a LaunchDarkly view links resource for managing bulk resource linkage to views. This resource allows you to efficiently link multiple flags and/or segments to a specific view. This is particularly useful for administrators organizing resources by team or deployment unit. -> Note: This resource manages ALL links for the specified resource types within a view. Adding or removing items from the configuration will link or unlink those resources accordingly. Alternative Approach: view_keys on Individual Resources For modular Terraform configurations where flags and segments are defined in separate files or modules, you can use the view_keys field directly on the resource instead of using this centralized view_links resource: Feature Flags: Use the view_keys attribute on launchdarkly_feature_flag resourcesSegments: Use the view_keys attribute on launchdarkly_segment resources When to use view_links (this resource): Managing many flags/segments for a single view (bulk operations)Centralized view management across your infrastructureAdministrative view organization When to use view_keys on individual resources: Modular Terraform structures with separate files per flag/segmentEach team/module manages their own resourcesWant view membership defined alongside the resource -> Warning: Do not use both view_links and view_keys to manage the same flag or segment''s view associations. Mixed ownership can cause conflicts; when detected, Terraform logs a warning and reconciles to the managing resource''s configured associations. Choose one approach per resource. See the feature flag resource documentation and segment resource documentation for details on the view_keys attribute.'
+        description: 'Provides a LaunchDarkly view links resource for managing bulk resource linkage to views. -> Note: Views are available to customers on an Enterprise LaunchDarkly plan. To learn more, read about our pricing https://launchdarkly.com/pricing/. To upgrade your plan, contact LaunchDarkly Sales https://launchdarkly.com/contact-sales/. ~> Beta: This resource uses a beta API. Beta resources may change or be removed in future versions. This resource allows you to efficiently link multiple flags and/or segments to a specific view. This is particularly useful for administrators organizing resources by team or deployment unit. -> Note: This resource manages ALL links for the specified resource types within a view. Adding or removing items from the configuration will link or unlink those resources accordingly. Alternative Approach: view_keys on Individual Resources For modular Terraform configurations where flags and segments are defined in separate files or modules, you can use the view_keys field directly on the resource instead of using this centralized view_links resource: Feature Flags: Use the view_keys attribute on launchdarkly_feature_flag resourcesSegments: Use the view_keys attribute on launchdarkly_segment resources When to use view_links (this resource): Managing many flags/segments for a single view (bulk operations)Centralized view management across your infrastructureAdministrative view organization When to use view_keys on individual resources: Modular Terraform structures with separate files per flag/segmentEach team/module manages their own resourcesWant view membership defined alongside the resource -> Warning: Do not use both view_links and view_keys to manage the same flag or segment''s view associations. Mixed ownership can cause conflicts; when detected, Terraform logs a warning and reconciles to the managing resource''s configured associations. Choose one approach per resource. See the feature flag resource documentation and segment resource documentation for details on the view_keys attribute.'
         name: launchdarkly_view_links
         title: launchdarkly_view_links Resource - launchdarkly
         examples:
